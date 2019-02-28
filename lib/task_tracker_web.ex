@@ -21,8 +21,8 @@ defmodule TaskTrackerWeb do
     quote do
       use Phoenix.Controller, namespace: TaskTrackerWeb
       import Plug.Conn
-      import TaskTrackerWeb.Router.Helpers
       import TaskTrackerWeb.Gettext
+      alias TaskTrackerWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -37,9 +37,9 @@ defmodule TaskTrackerWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import TaskTrackerWeb.Router.Helpers
       import TaskTrackerWeb.ErrorHelpers
-      import TaskTrackerWeb.Gettext
+      import TaskTrackerWeb.
+      alias TaskTrackerWeb.Router.Helpers, as: Routes
     end
   end
 

@@ -11,9 +11,15 @@ config :task_tracker, TaskTrackerWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
-
+  watchers: [
+   node: [
+     "node_modules/webpack/bin/webpack.js",
+     "--mode",
+     "development",
+     "--watch-stdin",
+     cd: Path.expand("../assets", __DIR__)
+   ]
+ ]
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
@@ -47,6 +53,9 @@ config :logger, :console, format: "[$level] $message\n"
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :task_tracker, TaskTracker.Repo,
