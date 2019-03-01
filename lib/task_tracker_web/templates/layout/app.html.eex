@@ -1,35 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Hello TaskTracker!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Task Tracker · Phoenix Framework</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-
   <body>
     <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+      <nav class="navbar navbar-expand-sm navbar-light bg-white">
+        <div class="col-4">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <%= if @current_user do %>
+              <li class="nav-item">
+                <a class="nav-link" href="/tasks">My Tasks</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users">User Directory</a>
+              </li>
+            <%= end %>
           </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+        </div>
+        <div class="col-4">
+      <%= if @current_user do %>
+        <p class="my-3">
+          User: <%= @current_user.name %> |
+          <%= link("Logout", to: Routes.session_path(@conn, :delete),
+            method: :delete) %>
+        </p>
+      <% else %>
+        <%= form_for @conn, Routes.session_path(@conn, :create),
+                [class: "form-inline"], fn f -> %>
+          <%= text_input f, :name, class: "form-control" %>
+          <%= submit "Login", class: "btn btn-secondary" %>
+        <% end %>
+      <% end %>
+      <%= if @current_user do %>
+        <p>My ID: <%= @current_user.id %></p>
+      <%= end %>
+    </div>
+      </nav>
+      <div class="row">
+        <div class="col-12">
+          <%= if get_flash(@conn, :info) do %>
+            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+          <% end %>
+          <%= if get_flash(@conn, :error) do %>
+            <p class="alert alert-danger" role="alert">
+              <%= get_flash(@conn, :error) %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+      <%= render @view_module, @view_template, assigns %>
+    </div>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

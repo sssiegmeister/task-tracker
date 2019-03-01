@@ -59,7 +59,6 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :task_tracker, TaskTracker.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "task_tracker_dev",
