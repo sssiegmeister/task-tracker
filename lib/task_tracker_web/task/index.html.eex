@@ -23,7 +23,7 @@
           <%= else %>
             <td>No</td>
           <%= end %>
-          <td><%= task.minutes_worked_on %></td>
+          <td><%= task.mins %></td>
 
           <td>
             <!--<%= link "Show", to: Routes.task_path(@conn, :show, task) %>-->

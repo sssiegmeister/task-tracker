@@ -19,7 +19,7 @@
 
   <li>
     <strong>Minutes worked on:</strong>
-    <%= @task.minutes_worked_on %>
+    <%= @task.mins %>
   </li>
 
   <li>
