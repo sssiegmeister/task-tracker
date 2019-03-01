@@ -18,9 +18,9 @@
     <%= checkbox f, :completed, class: "form-control" %>
     <%= error_tag f, :completed %>
 
-    <%= label f, :minutes_worked_on %>
-    <%= number_input f, :minutes_worked_on, class: "form-control", step: 15 %>
-    <%= error_tag f, :minutes_worked_on %>
+    <%= label f, :mins %>
+    <%= number_input f, :mins, class: "form-control", step: 15 %>
+    <%= error_tag f, :mins %>
 
     <%= label f, :user_id %>
     <%= text_input f, :user_id, class: "form-control" %>
