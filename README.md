@@ -1,5 +1,7 @@
 # TaskTracker
 
+chose to make managers able to select tasks for users, as well as the users themselves
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
