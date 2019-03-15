@@ -1,28 +1,42 @@
-<h1>Show Task</h1>
+<h1>Logs for Task: <%= @task.title %></h1>
 
-<ul>
-
-  <li>
-    <strong>User:</strong>
-    <%= @task.user %>
-  </li>
-
-  <li>
-    <strong>Complete:</strong>
-    <%= @task.complete %>
-  </li>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @task.title %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @task.description %>
-  </li>
-
+<ul id="task-logs">
+<%= for b <- TaskTracker.Timeblocks.list_timeblock() do %>
+  <%= if b.task_id == @task.id do %>
+    <li id="<%= b.id %>-entry">
+      Start: <%= b.start_time %> --------- End: <%= b.end_time %>
+      <button class="delete-time-button" id="<%= b.id %>-dtb" data-block-id="<%= b.id %>">Delete</button>
+    </li>
+  <% end %>
+<% end %>
 </ul>
+</br>
+</br>
 
-<span><%= link "Edit", to: Routes.task_path(@conn, :edit, @task) %></span>
+<%= if @current_user do %>
+<div class="row">
+  <div class="col-xs-4">
+    <div id="submit-time">
+      <p>Enter new start time: </p><input id="submit-time-start" type="datetime-local">
+      <p>Enter new end time: </p><input id="submit-time-end" type="datetime-local"></br></br>
+      <button id="submit-time-button" data-task-id="<%= @task.id %>">Submit</button>
+    </div>
+  </div>
+  <div class="mx-auto">
+    </br>
+    </br>
+    <strong>--- OR ---</strong>
+  </div>
+  <div class="col-xs-4">
+    <div id="timer">
+      <p>Use a timer to log work:</p>
+      <button id="timer-toggle" data-task-id="<%= @task.id %>">Start Timer</button></br></br>
+      <p id="timer-start-time">Start Time: </p>
+      <p id="timer-end-time">End Time: </p>
+      <p>(Warning: navigating off this page</br> while the timer is runnning will result</br> in a loss of the start time)</p>
+    </div>
+  </div>
+</div>
+<% end %>
+
 <span><%= link "Back", to: Routes.task_path(@conn, :index) %></span>

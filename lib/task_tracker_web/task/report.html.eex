@@ -1,0 +1,40 @@
+<h1>Task Report</h1>
+
+<table class="table table-striped">
+ <thead>
+   <tr>
+     <th>Title</th>
+     <th>Description</th>
+     <th>Completed?</th>
+     <th>Minutes worked on</th>
+     <th>Belongs To</th>
+     <th>Actions</th>
+
+     <th></th>
+   </tr>
+ </thead>
+ <tbody>
+   <%= for task <- @tasks do %>
+     <%= if TaskTracker.Accounts.get_user(task.user_id).manager_id == @current_user.id do %>
+       <tr>
+         <td><%= task.title %></td>
+         <td><%= task.description %></td>
+         <%= if task.completed do %>
+           <td>Yes</td>
+         <%= else %>
+           <td>No</td>
+         <% end %>
+         <td><%= task.minutes_worked_on %></td>
+         <td><%= TaskTracker.Accounts.get_user(task.user_id).name %></td>
+         <td>
+           <!--<%= link "Show", to: Routes.task_path(@conn, :show, task) %>-->
+           <%= link "Edit", to: Routes.task_path(@conn, :edit, task), class: "btn btn-info" %>
+           <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+         </td>
+       </tr>
+     <% end %>
+   <% end %>
+ </tbody>
+</table>
+
+<span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>

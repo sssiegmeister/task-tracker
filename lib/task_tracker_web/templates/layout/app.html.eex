@@ -41,7 +41,7 @@
       <% end %>
       <%= if @current_user do %>
         <p>My ID: <%= @current_user.id %></p>
-      <%= end %>
+      <% end %>
     </div>
       </nav>
       <div class="row">

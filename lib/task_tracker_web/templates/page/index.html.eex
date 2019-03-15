@@ -3,6 +3,6 @@
     <h1>Welcome to Task Tracker</h1>
     <%= if ! @current_user do %>
       <%= link "Register", to: Routes.user_path(@conn, :new) %>
-    <%= end %>
+    <% end %>
   </div>
 </div>

@@ -3,9 +3,9 @@ defmodule TaskTrackerWeb.UserControllerTest do
 
   alias TaskTracker.Users
 
-  @create_attrs %{name: "some name"}
-  @update_attrs %{name: "some updated name"}
-  @invalid_attrs %{name: nil}
+  @create_attrs %{manager_id: 42, name: "some name"}
+  @update_attrs %{manager_id: 43, name: "some updated name"}
+  @invalid_attrs %{manager_id: nil, name: nil}
 
   def fixture(:user) do
     {:ok, user} = Users.create_user(@create_attrs)

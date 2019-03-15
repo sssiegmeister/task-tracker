@@ -3,6 +3,7 @@ defmodule TaskTrackerWeb.TaskController do
 
   alias TaskTracker.Tasks
   alias TaskTracker.Tasks.Task
+  alias TaskTracker.Accounts
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
@@ -15,7 +16,7 @@ defmodule TaskTrackerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
-    case Tasks.create_task(task_params) do
+    case Tasks.create_task(conn.assigns.current_user.id, task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
@@ -40,7 +41,7 @@ defmodule TaskTrackerWeb.TaskController do
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
 
-    case Tasks.update_task(task, task_params) do
+    case Tasks.update_task(task, conn.assigns.current_user.id, task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task updated successfully.")
