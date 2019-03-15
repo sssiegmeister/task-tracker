@@ -5,11 +5,11 @@ defmodule TaskTracker.Accounts.User do
 
   schema "users" do
     field :name, :string
-    has_many :tasks, TaskTracker.Tasks.Task
 
     timestamps()
   end
 
+  @doc false
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name])
